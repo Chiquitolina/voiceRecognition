@@ -1,5 +1,10 @@
 const recognition = new webkitSpeechRecognition()
-recognition.lang = 'es-AR'
+
+const navigationVoice = new webkitSpeechRecognition()
+
+recognition.lang = 'en-US'
+
+navigationVoice.lang = 'en-US'
 
 recognition.continuous = true
 
@@ -8,6 +13,31 @@ const contEsc = document.getElementById('escuchadoCont')
 const contenedorEscuchando = document.getElementById('contenedorEscuchando')
 
 const selectLang = document.getElementById('selectLang')
+
+const divLabel = document.getElementById('labelNav')
+
+function activarNavegacionPorVoz() {
+  navigationVoice.start()
+  navigationVoice.continuous = true
+  navigationVoice.onresult = event => {
+    for (const result of event.results) {
+      divLabel.innerHTML = ''
+      let escuchado = document.createElement('label')
+      escuchado.innerHTML = result[0].transcript
+      divLabel.appendChild(escuchado)
+      if (escuchado.innerHTML == 'home') {
+        window.location.assign('./index.html')
+      } else 
+      if (escuchado.innerHTML == 'paint') {
+        window.location.assign('./paint.html')
+      } else {
+        if (escuchado.innerHTML == 'about') {
+          window.location.assign('./about.html')
+        }
+      }
+    }
+  }
+}
 
 function limpiarescuchar() {
   contEsc.innerHTML = ''
