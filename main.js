@@ -16,9 +16,20 @@ const selectLang = document.getElementById('selectLang')
 
 const divLabel = document.getElementById('labelNav')
 
+function speech(speech) {
+  let utterance = new SpeechSynthesisUtterance(speech);
+speechSynthesis.speak(utterance);
+}
+
+function detenerNavegacionPorVoz() {
+  speech('Navegación por voz desactivada.')
+   navigationVoice.stop()
+}
+
 function activarNavegacionPorVoz() {
-  navigationVoice.start()
+  speech('Navegación por voz activada.')
   navigationVoice.continuous = true
+  navigationVoice.start()
   navigationVoice.onresult = event => {
     for (const result of event.results) {
       divLabel.innerHTML = ''
