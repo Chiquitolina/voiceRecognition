@@ -2,7 +2,7 @@ const recognition = new webkitSpeechRecognition()
 
 const navigationVoice = new webkitSpeechRecognition()
 
-recognition.lang = 'en-US'
+recognition.lang = 'es-AR'
 
 navigationVoice.lang = 'en-US'
 
@@ -18,17 +18,15 @@ const divLabel = document.getElementById('labelNav')
 
 function speech(speech) {
   let utterance = new SpeechSynthesisUtterance(speech);
+  utterance.lang = 'es-AR'
 speechSynthesis.speak(utterance);
 }
 
 function detenerNavegacionPorVoz() {
-  speech('Navegación por voz desactivada.')
    navigationVoice.stop()
 }
 
 function activarNavegacionPorVoz() {
-  speech('Navegación por voz activada.')
-  navigationVoice.continuous = true
   navigationVoice.start()
   navigationVoice.onresult = event => {
     for (const result of event.results) {
@@ -77,6 +75,10 @@ recognition.onresult = event => {
   }
 }
 
+}
+
+function reproducirEscuchado() {
+  speech(contEsc.innerText)
 }
 
 function dejardeescuchar() {
